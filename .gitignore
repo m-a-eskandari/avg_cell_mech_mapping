@@ -1,0 +1,8 @@
+cat << 'EOF' > .gitignore
+.idea/
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+EOF

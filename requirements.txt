@@ -1,0 +1,15 @@
+torch==2.5.1
+torchvision==0.20.1
+cupy-cuda11x==13.6.0
+micro_sam
+numpy
+matplotlib
+pandas
+pyside6
+h5py
+statsmodels
+seaborn
+pygam
+npTDMS
+LinOT
+MultiScaleOT

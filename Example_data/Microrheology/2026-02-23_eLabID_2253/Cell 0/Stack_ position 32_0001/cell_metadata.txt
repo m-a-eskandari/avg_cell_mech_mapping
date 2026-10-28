@@ -1,0 +1,6 @@
+rotation_angle: -2.44
+raw_img_center_y: 447.5
+raw_img_center_x: 447.5
+cell_pixel_position_z: 0.0
+cell_pixel_position_y: 430.0
+cell_pixel_position_x: 440.0

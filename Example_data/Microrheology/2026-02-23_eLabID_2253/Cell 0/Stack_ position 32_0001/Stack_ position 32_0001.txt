@@ -1,0 +1,2 @@
+Pattern Number,Motor Stage Position X (um),Motor Stage Position Y (um),Piezo Stage Position X (um),Piezo Stage Position Y (um),Piezo Stage Position Z (um),Objective Position (um),Date,Time
+1,-1145.3999999999999,-1781.1999999999998,0.0,0.0,0.0,8087.86,23/02/2026,14:36

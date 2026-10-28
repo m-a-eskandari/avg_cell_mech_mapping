@@ -1,0 +1,6 @@
+General:
+Passive: use last three
+Active X: use the clean one
+Active Y: use the clean one
+Circular CW:
+Circular CCW:
