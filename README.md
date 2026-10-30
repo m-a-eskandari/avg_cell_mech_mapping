@@ -16,9 +16,6 @@ This repository provides Python pipelines and analysis utilities for processing 
 ---
 
 ## Project Structure
-
-> **Dataset Note:** `Example_Data/` contains minimal sample data for testing. The full dataset is available on GRO.data at [https://doi.org/10.25625/I1XIFI](https://doi.org/10.25625/I1XIFI).
-
 ```text
 avg_cell_mech_mapping/
 ├── Example_Data/                   # Minimal sample datasets
@@ -40,6 +37,146 @@ avg_cell_mech_mapping/
 └── README.md                       # Project documentation
 ```
 ---
+
+### Dataset Note 
+The `Example_Data/` directory contains minimal sample data for testing code functionality. The complete dataset is hosted on GRO.data at [doi.org/10.25625/I1XIFI](https://doi.org/10.25625/I1XIFI).
+
+### Data Mapping to Paper Figures
+
+The mapping below links each figure in our publication, **["Structural order emerges without mechanical order inside living cells"](https://doi.org/10.64898/2026.10.15.759452)**, to its corresponding dataset files and indices in the full repository:
+
+#### Main Text Figures
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Figure</th>
+      <th align="left">Source File / Path</th>
+      <th align="left">Notes / Specific Indices</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td nowrap="nowrap"><strong>Fig.&nbsp;1b</strong></td>
+      <td><code>Average_cell/data/datasets.npz</code></td>
+      <td><code>["dataset4"][10]</code></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>Fig.&nbsp;2a</strong></td>
+      <td><code>Average_cell/data/structures_images.npz</code></td>
+      <td>N=10 (sampled with <code>random.seed(10)</code>); N=437 (all actin images)</td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>Fig.&nbsp;2d</strong></td>
+      <td><code>Average_cell/data_processed/Average_cell.tif</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>Fig.&nbsp;2e</strong></td>
+      <td><code>Average_cell/data_processed/Actin/actin_pca_dist.npy</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>Fig.&nbsp;3a,&nbsp;d</strong></td>
+      <td><code>Mechanical_fingerprint/Mechanical_fingerprint.npz</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>Fig.&nbsp;3b,&nbsp;c</strong></td>
+      <td><code>Microrheology/RPE1/2026-02-25_eLabID_2264/Cell 3/particle 1/Active_microrheology_0003/results.h5</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>Fig.&nbsp;5a</strong></td>
+      <td><code>Average_cell/data/structures_images.npz</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>Fig.&nbsp;5b</strong></td>
+      <td><code>Microrheology/Actin/</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>Fig.&nbsp;6a,&nbsp;b</strong></td>
+      <td><code>Mechanical_fingerprint/Mechanical_fingerprint.npz</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>Fig.&nbsp;6c</strong></td>
+      <td><code>Average_cell/data/structures_images.npz</code></td>
+      <td><code>["actin"][0, 51, 65, 66]</code>, <code>["microtubules"][0, 1, 2, 3]</code>, <code>["endoplasmic reticulum"][0, 1, 2, 3]</code></td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+#### SI Figures
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Figure</th>
+      <th align="left">Source File / Path</th>
+      <th align="left">Notes / Specific Indices</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="3" valign="top" nowrap="nowrap"><strong>SI&nbsp;Fig.&nbsp;1</strong></td>
+      <td><strong>Golgi &amp; ER:</strong> <code>Average_cell/data/datasets.npz</code></td>
+      <td><code>["dataset5"][14]</code>, <code>["dataset4"][14]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Others:</strong> <code>Average_cell/data/structures_images.npz</code></td>
+      <td><code>["nucleus"][0]</code>, <code>["actin"][100]</code>, <code>["microtubules"][9]</code></td>
+    </tr>
+    <tr>
+      <td><strong>Average Cell:</strong> <code>Average_cell/data_processed/Average_cell.tif</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>SI&nbsp;Fig.&nbsp;2</strong></td>
+      <td><code>Average_cell/data_processed/[structure_name]/[structure_name]_pca_dist.npy</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="2" valign="top" nowrap="nowrap"><strong>SI&nbsp;Fig.&nbsp;3</strong></td>
+      <td><strong>Active:</strong> <code>Microrheology/RPE1/2026-02-23_eLabID_2253/Cell 0/particle 0/Active_microrheology_0004/</code></td>
+      <td> <code>Active_microrheology.tdms</code> &amp; <code>results.h5</code></td>
+    </tr>
+    <tr>
+      <td><strong>Passive:</strong> <code>Microrheology/RPE1/2026-02-23_eLabID_2253/Cell 0/particle 0/Passive_microrheology_0004/</code></td>
+      <td><code>Passive_microrheology.tdms</code></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>SI&nbsp;Fig.&nbsp;4</strong></td>
+      <td><code>Microrheology/Hydrogel/</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>SI&nbsp;Fig.&nbsp;5</strong></td>
+      <td><code>Mechanical_fingerprint/Mechanical_fingerprint.npz</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>SI&nbsp;Fig.&nbsp;6</strong></td>
+      <td><code>Mechanical_fingerprint/Mechanical_fingerprint.npz</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>SI&nbsp;Fig.&nbsp;10</strong></td>
+      <td><code>Mechanical_fingerprint/Mechanical_fingerprint.npz</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap"><strong>SI&nbsp;Fig.&nbsp;11</strong></td>
+      <td><code>Mechanical_fingerprint/Mechanical_fingerprint.npz</code></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
 
 
 ## Installation & Setup
