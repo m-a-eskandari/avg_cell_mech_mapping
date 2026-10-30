@@ -13,3 +13,7 @@ pygam
 npTDMS
 LinOT
 MultiScaleOT
+scipy
+scikit-learn
+tqdm
+jupyterlab
