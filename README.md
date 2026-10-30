@@ -11,7 +11,8 @@ This repository provides Python pipelines and analysis utilities for processing 
 
 * **Active & Passive Microrheology:** Extract mechanical fingerprint from .tdms and particle-tracking datasets.
 * **Average Cell:** Providing average cell template of intracellular structures of micropatterned cells, using optimal transport framework. 
-* **Workflows:** Interactive Jupyter notebooks (Microrheology.ipynb, Average_cell.ipynb) demonstrating end-to-end data processing.
+* **Spatial Mapping:** GAM-based analysis of the spatial dependence of the mechanical fingerprint on average-cell coordinates, with nested cross-validation (`Spatial_mapping/`, developed by Sascha Lambert).
+* **Workflows:** Interactive Jupyter notebooks (Microrheology.ipynb, Average_cell.ipynb, Spatial_mapping/) demonstrating end-to-end data processing.
 
 ---
 
@@ -33,6 +34,11 @@ avg_cell_mech_mapping/
 │   ├── plot_functions.py                    # Plotting microrheology results
 │   ├── tdms_functions.py                    # Loader for .tdms files
 │   └── utility_functions.py                 # General helper tools
+├── Spatial_mapping/                # GAM analysis of the mechanical fingerprint
+│   ├── analysis/                   # Notebooks fitting the GAMs (nested CV)
+│   ├── plotting/                   # Notebooks plotting the results
+│   ├── data/                       # mechanical_fingerprint.npz, actin_nucleus_borders.npz
+│   └── output/                     # Precomputed results (.pkl)
 ├── Average_cell.ipynb              # Workflow notebook for average cell mapping
 ├── Microrheology.ipynb             # Workflow notebook for microrheology analysis
 ├── env.yml                         # Micromamba/Conda environment specification
@@ -78,4 +84,5 @@ pip install -r requirements.txt
 
 1. **Microrheology Pipeline:** Open `Microrheology.ipynb` to process microrheology datasets and extract local mechanical fingerprints. This notebook handles probe localization relative to the micropattern, calculates viscoelastic moduli, and maps localized cellular coordinates onto normalized average-cell coordinates.
 2. **Average Cell Pipeline:** Open `Average_cell.ipynb` to construct standardized average-cell templates via optimal transport algorithms. This workflow utilizes [MultiScaleOT](https://bernhard-schmitzer.github.io/MultiScaleOT/build/html/index.html) and [LinOT](https://gitlab.gwdg.de/bernhard.schmitzer/linot) to perform density registration and morphological averaging.
+3. **Spatial Mapping (GAM analysis):** The notebooks in `Spatial_mapping/` read `data/mechanical_fingerprint.npz` and write their results to `output/` (precomputed results are included). Run the notebooks in `analysis/` (about 30-40 min each on 4 CPU cores; `logA x partitions` is quick and must run before `plotting/partition_plots.ipynb`), then the notebooks in `plotting/`.
 ---
