@@ -11,7 +11,7 @@ This repository provides Python pipelines and analysis utilities for processing 
 
 * **Active & Passive Microrheology:** Extract mechanical fingerprint from .tdms and particle-tracking datasets.
 * **Average Cell:** Providing average cell template of intracellular structures of micropatterned cells, using optimal transport framework. 
-* **Spatial Mapping:** GAM-based analysis of the spatial dependence of the mechanical fingerprint on average-cell coordinates, with nested cross-validation (`Spatial_mapping/`, developed by Sascha Lambert).
+* **Spatial Mapping:** GAM-based analysis of the spatial dependence of the mechanical fingerprint on average-cell coordinates, with nested cross-validation (`Spatial_mapping/`).
 * **Workflows:** Interactive Jupyter notebooks (Microrheology.ipynb, Average_cell.ipynb, Spatial_mapping/) demonstrating end-to-end data processing.
 
 ---
