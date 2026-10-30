@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import cupy as cp
 from cupyx.scipy.ndimage import affine_transform
 from cupyx.scipy.signal import fftconvolve
+import scipy.fft as fft
 
 
 def rotate_2d_cupy(image_2d, angle_deg=0.0):
@@ -211,3 +212,35 @@ def ncc_response_partial_overlap(
 
     # response is in [-1, 1] where defined; -inf where undefined (we can mask)
     return cp.asnumpy(response)
+
+def get_radial_profile(data):
+    """Compute the radial average of a 2D centered array."""
+    y, x = np.indices(data.shape)
+    center = np.array(data.shape) // 2
+    r = np.sqrt((x - center[1]) ** 2 + (y - center[0]) ** 2).astype(int)
+
+    tbin = np.bincount(r.ravel(), data.ravel())
+    nr = np.bincount(r.ravel())
+    nr[nr == 0] = 1
+    return tbin / nr
+
+
+def analyze_structure_with_stats(stack):
+    """Computes mean and std of autocorrelation for a stack of images."""
+    n_images = stack.shape[0]
+    all_profiles = []
+
+    for i in range(n_images):
+        img = stack[i].astype(float)
+        img = (img - np.mean(img)) / (np.std(img) + 1e-8)
+
+        f = fft.fft2(img)
+        acf = fft.ifft2(f * np.conj(f)).real
+        acf = fft.fftshift(acf)
+
+        profile = get_radial_profile(acf)
+        profile /= (profile[0] + 1e-8)
+        all_profiles.append(profile)
+
+    all_profiles = np.array(all_profiles)
+    return np.mean(all_profiles, axis=0), np.std(all_profiles, axis=0)

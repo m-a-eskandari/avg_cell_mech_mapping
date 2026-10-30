@@ -2,7 +2,7 @@ cat << 'EOF' > .gitignore
 .idea/
 __pycache__/
 *.pyc
-.venv/
+.venv/s
 venv/
 *.egg-info/
 EOF

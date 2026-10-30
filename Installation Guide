@@ -1,8 +1,0 @@
-# Create the conda environment:
-micromamba env create -f env.yml
-
-# activate the conda environment
-micromamba activate avg_cell_mech_mapping
-
-# install all the requirements
-pip install -r requirements.txt

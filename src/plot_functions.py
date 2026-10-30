@@ -180,3 +180,127 @@ def plot_effective_energy(
     fig.tight_layout()
     plt.show()
     return fig, ax
+
+def plot_autocorrelation_profiles(
+    structure_autocorr_data, ensemble_autocorr_data, cfg=None
+):
+    """Plots spatial autocorrelation profiles and 1/e correlation lengths (l_c)
+
+    for individual structures alongside the global ensemble average.
+    """
+    # Fallback formatting configuration if cfg is not provided
+    if cfg is None:
+        cfg = {
+            "lines": {"width": 1.5},
+            "axes": {
+                "labelsize": 11,
+                "labelweight": "bold",
+                "labelcolor": "black",
+                "linewidth": 1.0,
+            },
+            "ticks": {"width": 1.0, "length": 4, "labelsize": 10, "labelweight": "normal"},
+            "legend": {"fontsize": 9, "frameon": True},
+        }
+
+    fig, ax = plt.subplots(figsize=(7, 5), dpi=300)
+
+    threshold = 1 / np.e
+    color_map = plt.cm.tab10
+
+    # 1. Plot individual structure profiles
+    for i, (name, data) in enumerate(structure_autocorr_data.items()):
+        line_color = color_map(i % 10)
+        dist_1e = data["dist_1e"]
+
+        # Format label with chemical/structure formatting and l_c value
+        if name.lower() in ["endoplasmic reticulum", "er"]:
+            label_name = "ER"
+        elif name.lower() in ["microtubules", "mt"]:
+            label_name = "MT"
+        else:
+            label_name = name.capitalize()
+
+        lc_str = f"{dist_1e:.2f}" if dist_1e is not None else "N/A"
+        label_str = rf"{label_name} ($\mathbf{{l_c = }}$ {lc_str} µm)"
+
+        # Mean curve & std envelope
+        ax.plot(
+            data["x"],
+            data["mean"],
+            linestyle="--",
+            linewidth=cfg["lines"]["width"],
+            color=line_color,
+            alpha=0.85,
+            label=label_str,
+        )
+        ax.fill_between(
+            data["x"],
+            data["mean"] - data["std"],
+            data["mean"] + data["std"],
+            color=line_color,
+            alpha=0.1,
+        )
+
+    # 2. Plot global ensemble average profile
+    global_x = ensemble_autocorr_data["x"]
+    global_mean = ensemble_autocorr_data["mean"]
+    global_lc = ensemble_autocorr_data["dist_1e"]
+
+    global_lc_str = f"{global_lc:.2f}" if global_lc is not None else "N/A"
+    global_label = rf"Average ($\mathbf{{l_c = }}$ {global_lc_str} µm)"
+
+    ax.plot(
+        global_x,
+        global_mean,
+        color="black",
+        linewidth=cfg["lines"]["width"] * 2,
+        label=global_label,
+    )
+
+    # 3. Mark 1/e threshold and global l_c vertical indicator
+    ax.axhline(threshold, color="black", linestyle=":", alpha=0.7, label="1/e Threshold")
+    if global_lc is not None:
+        ax.axvline(global_lc, color="black", linestyle=":", linewidth=1.5, alpha=0.8)
+
+    # 4. Axes, styling, and legend formatting
+    ax.set_xlabel(
+        r"Distance [$\mathbf{\mu m}$]",
+        fontsize=cfg["axes"]["labelsize"],
+        fontweight=cfg["axes"]["labelweight"],
+        color=cfg["axes"]["labelcolor"],
+    )
+    ax.set_ylabel(
+        "Autocorrelation Function",
+        fontsize=cfg["axes"]["labelsize"],
+        fontweight=cfg["axes"]["labelweight"],
+        color=cfg["axes"]["labelcolor"],
+    )
+
+    ax.tick_params(
+        axis="both",
+        which="major",
+        direction="out",
+        colors=cfg["axes"]["labelcolor"],
+        width=cfg["ticks"]["width"],
+        length=cfg["ticks"]["length"],
+        labelsize=cfg["ticks"]["labelsize"],
+    )
+
+    for spine in ax.spines.values():
+        spine.set_visible(True)
+        spine.set_color(cfg["axes"]["labelcolor"])
+        spine.set_linewidth(cfg["axes"]["linewidth"])
+
+    ax.set_ylim(-0.05, 1.05)
+    ax.grid(True, alpha=0.2, linestyle="--")
+
+    ax.legend(
+        bbox_to_anchor=(1.02, 1),
+        loc="upper left",
+        fontsize=cfg["legend"]["fontsize"],
+        frameon=cfg["legend"]["frameon"],
+    )
+
+    plt.tight_layout()
+    plt.show()
+    return fig, ax
